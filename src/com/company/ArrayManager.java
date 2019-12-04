@@ -5,12 +5,15 @@ import java.util.Random;
 public class ArrayManager {
     boolean sorted = false;
 
-
-    public static int[] intArraySorter(int [] array){
+    public static int[] intArrayRandomNumsFiller(int[] array){
         Random random = new Random();
         for(int i = 1; i < array.length; i++){
             array[i] = random.nextInt(array.length);
-        }
+        }return array;
+    }
+    public static int[] intArraySorter(int [] array){
+
+
         for (int left = 0; left < array.length; left++) {
             // Вытаскиваем значение элемента
             int value = array[left];
@@ -28,10 +31,7 @@ public class ArrayManager {
             // В освободившееся место вставляем вытащенное значение
             array[i + 1] = value;
         }
-        //принтим массив
-        for (int i = 0; i < array.length; i++) {
-            System.out.println(i+ ": "  + array[i]+" ");
-        }
+
         return array;
     }
 

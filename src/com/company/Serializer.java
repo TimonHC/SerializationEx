@@ -15,7 +15,6 @@ public class Serializer {
     FileInputStream fis = new FileInputStream(PATH_TO_FILE);
     ObjectInputStream oin = new ObjectInputStream(fis);
     obj = (Object) oin.readObject();
-   System.out.println(obj.toString());
 }
 }
 

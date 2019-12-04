@@ -9,30 +9,40 @@ public class Main {
     public static final String PATH_TO_UNSORTED_FILE = "Files\\UnsortedRandomNums.txt";
     public static final String PATH_TO_SORTED_FILE = "Files\\SortedRandomNums.txt";
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Scanner scanner = new Scanner(System.in);        //enter lenght of array
-        int lenght = scanner.nextInt();
+            //enter lenght of array
+        /*int lenght = scanner.nextInt();
         int[] randomNums = new int[lenght];
         File sortedFile = new File(PATH_TO_SORTED_FILE);
         File unsortedFile = new File (PATH_TO_UNSORTED_FILE);
-        ArrayManager.intArrayRandomNumsFiller(randomNums);
+        ArrayManager.intArrayRandomNumsFiller(randomNums);*/
+        Random random = new Random();
+        FileWriter fileWriter = new FileWriter(PATH_TO_UNSORTED_FILE);
+        for (int i = 0; i < 10; i++) {
+            fileWriter.write(random.nextInt(10)+" ");
+        }
+        fileWriter.flush();
+        fileWriter.close();
 
-        if(unsortedFile.createNewFile()) {
-            Serializer.explicitSerialize(randomNums, PATH_TO_UNSORTED_FILE);
+        int[] sortBuffer = new int[10];
+        int i = 0;
+        File unsorted = new File(PATH_TO_UNSORTED_FILE);
+        Scanner scanner = new Scanner(unsorted);
+        while (scanner.hasNext()) {
+            if (scanner.hasNextInt()) {
+                sortBuffer[i] = scanner.nextInt();
+                System.out.print(sortBuffer[i]+" ");
+                i++;
+            } else scanner.next();
         }
-        Serializer.decodeSerialized(PATH_TO_UNSORTED_FILE, randomNums);
-        //принтим массив
-        for (int i = 0; i < randomNums.length; i++) {
-            System.out.println(i+1+ ": "  + randomNums[i]+" ");
-        }
-        ArrayManager.intArraySorter(randomNums);
+        scanner.close();
 
-        if(sortedFile.createNewFile()){
-            Serializer.explicitSerialize(randomNums, PATH_TO_SORTED_FILE);
+        FileWriter fileWriter1 = new FileWriter(PATH_TO_SORTED_FILE);
+        ArrayManager.intArraySorter(sortBuffer);
+        for (i = 0; i < sortBuffer.length; i++) {
+            fileWriter1.write(sortBuffer[i]+" ");
         }
-        //принтим массив
-        for (int i = 0; i < randomNums.length; i++) {
-            System.out.println(i+1+ ": "  + randomNums[i]+" ");
-        }
+        fileWriter1.flush();
+        fileWriter1.close();
 
     }
 }
